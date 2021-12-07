@@ -19,7 +19,7 @@ Function WaitForKey {
 }
 
 #Installing chocolatey
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 #Install Git and clone repo
 choco install git --params "'/NoShellIntegration'" -y
@@ -33,3 +33,15 @@ Write-Host "Starting stage 2 - debloat"
 Start-Sleep -s 3
 $script2 = $PSScriptRoot+"\2 - Debloat.ps1"
 &$script2
+
+#Change svchost split threshold
+#4 GB	68764420
+#6 GB	103355478
+#8 GB	137922056
+#12 GB	307767570
+#16 GB	376926742
+#24 GB	622221348
+#32 GB	861226034
+#64 GB	1729136740
+$value = "861226034"
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Type "DWord" -Name "SvcHostSplitThresholdInKB" -Value "$value"
