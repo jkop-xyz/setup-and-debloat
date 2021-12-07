@@ -68,21 +68,21 @@ Function HideTaskbarPeopleIcon {
 Function RemoveENKeyboard {
 	Write-Host "Removing Secondary sv-SE Keyboard"
 	$langs = Get-WinUserLanguageList
-	Set-WinUserLanguageList ($langs | ? {$_.LanguageTag -ne "sv-SE"}) -Force
+	Set-WinUserLanguageList ($langs | Where-Object {$_.LanguageTag -ne "sv-SE"}) -Force
 }
 
 # Remove secondary en-GB keyboard
 Function RemoveENKeyboard {
 	Write-Host "Removing Secondary en-GB Keyboard"
 	$langs = Get-WinUserLanguageList
-	Set-WinUserLanguageList ($langs | ? {$_.LanguageTag -ne "en-GB"}) -Force
+	Set-WinUserLanguageList ($langs | Where-Object {$_.LanguageTag -ne "en-GB"}) -Force
 }
 
 # Remove secondary en-US keyboard
 Function RemoveENKeyboard {
 	Write-Host "Removing Secondary en-US Keyboard"
 	$langs = Get-WinUserLanguageList
-	Set-WinUserLanguageList ($langs | ? {$_.LanguageTag -ne "en-US"}) -Force
+	Set-WinUserLanguageList ($langs | Where-Object {$_.LanguageTag -ne "en-US"}) -Force
 }
 
 # Hide Quick Acess from Explorer
@@ -249,7 +249,7 @@ Function DisableActivityHistory {
 # Disable Background application access - ie. if apps can download or update when they aren't used - Cortana is excluded as its inclusion breaks start menu search
 Function DisableBackgroundApps {
 	Write-Output "Disabling Background Application Access"
-	Get-ChildItem -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Exclude "Microsoft.Windows.Cortana*" | ForEach {
+	Get-ChildItem -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Exclude "Microsoft.Windows.Cortana*" | ForEach-Object {
 		Set-ItemProperty -Path $_.PsPath -Name "Disabled" -Type DWord -Value 1
 		Set-ItemProperty -Path $_.PsPath -Name "DisabledByUser" -Type DWord -Value 1
 	}
@@ -413,13 +413,13 @@ Function DisableTelemetry {
 
 # Remove Microsoft OneDrive
 Function RemoveOneDrive {
-    ps onedrive | Stop-Process -Force
+    Get-Process onedrive | Stop-Process -Force
     start-process "$env:windir\SysWOW64\OneDriveSetup.exe" "/uninstall"
     Write-Host "Removing Microsoft Onedrive"
 }
 
 # Remove Microsoft Apps
 Function RemoveMicrosoftApps {
-    Get-AppxPackage | where-object {$_.name –like “*Bing*”} | where-object {$_.name –like “*Solitaire*”} | where-object {$_.name –like “*Bio*”} | where-object {$_.name –like “*Phone*”} | where-object {$_.name –like “*twitter*”} | | where-object {$_.name –like “*candy*”}  Remove-AppxPackage
+    Get-AppxPackage | where-object {$_.name –like “*Bing*”} | where-object {$_.name –like “*Solitaire*”} | where-object {$_.name –like “*Bio*”} | where-object {$_.name –like “*Phone*”} | where-object {$_.name –like “*twitter*”} | where-object {$_.name –like “*candy*”} | Remove-AppxPackage
     Write-Host "Removing Microsoft Apps"
 }

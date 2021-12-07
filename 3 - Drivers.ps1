@@ -27,3 +27,7 @@ Remove-Item -Path "C:\temp\drivers\intel_nic.zip"
 Invoke-WebRequest -Uri "https://dlcdnets.asus.com/pub/ASUS/mb/01AUDIO/DRV_Audio_RTK_UWD_SS3_VAC_TP_W10_64_V6089601_20200929R.zip" -OutFile "C:\temp\drivers\realtek_audio.zip"
 Expand-Archive -LiteralPath "C:\temp\drivers\realtek_audio.zip" -DestinationPath "C:\temp\drivers\realtek_audio"
 Remove-Item -Path "C:\temp\drivers\realtek_audio.zip"
+
+Invoke-WebRequest -Uri "https://dlcdnets.asus.com/pub/ASUS/wireless/USB-BT400/DR_USB_BT400_1201710_Windows.zip" -OutFile "C:\temp\drivers\asus_bt.zip"
+Expand-Archive -LiteralPath "C:\temp\drivers\realtek_audio.zip" -DestinationPath "C:\temp\drivers\asus_bt"
+Remove-Item -Path "C:\temp\drivers\asus_bt.zip"
