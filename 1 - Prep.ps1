@@ -29,11 +29,6 @@ git clone "x" C:\script\
 Copy-Item "C:\script\saides-modules.psm1" -Destination "C:\Program Files\WindowsPowerShell\Modules\saides-modules\" -Recurse
 Import-Module saides-modules
 
-Write-Host "Starting stage 2 - debloat"
-Start-Sleep -s 3
-$script2 = $PSScriptRoot+"\2 - Debloat.ps1"
-&$script2
-
 #Change svchost split threshold
 #4 GB	68764420
 #6 GB	103355478
@@ -45,3 +40,8 @@ $script2 = $PSScriptRoot+"\2 - Debloat.ps1"
 #64 GB	1729136740
 $value = "861226034"
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Type "DWord" -Name "SvcHostSplitThresholdInKB" -Value "$value"
+
+Write-Host "Starting stage 2 - debloat"
+Start-Sleep -s 3
+$script2 = $PSScriptRoot+"\2 - Debloat.ps1"
+&$script2

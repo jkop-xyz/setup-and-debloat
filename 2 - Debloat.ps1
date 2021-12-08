@@ -139,17 +139,7 @@ Set-Service FontCache3.0.0.0 -StartupType Disabled
 Set-Service WinRM -StartupType Disabled
 Set-Service WwanSvc -StartupType Disabled
 
-# Wait for key press
-Function WaitForKey {
-	Write-Host
-	Write-Host "Press Any Key To Restart PC..." -ForegroundColor Black -BackgroundColor White
-	[Console]::ReadKey($true) | Out-Null
-}
-WaitForKey
-
-
-# Restart computer
-Function Restart {
-	Restart-Computer
-}
-Restart
+Write-Host "Starting stage 3 - Drivers"
+Start-Sleep -s 3
+$script2 = $PSScriptRoot+"\3 - Drivers.ps1"
+&$script2

@@ -18,6 +18,10 @@ Function WaitForKey {
 	[Console]::ReadKey($true) | Out-Null
 }
 
+Install-Module PSWindowsUpdate
+Get-WindowsUpdate | Out-Null
+Install-WindowsUpdate -Category "Drivers" -NotTitle "Nahimic" -AcceptAll -IgnoreReboot
+
 New-Item -Path "C:\temp" -Name "drivers" -ItemType "directory"
 
 Invoke-WebRequest -Uri "https://downloadmirror.intel.com/682066/Wired_driver_26.6_x64.zip" -OutFile "C:\temp\drivers\intel_nic.zip"
@@ -31,3 +35,8 @@ Remove-Item -Path "C:\temp\drivers\realtek_audio.zip"
 Invoke-WebRequest -Uri "https://dlcdnets.asus.com/pub/ASUS/wireless/USB-BT400/DR_USB_BT400_1201710_Windows.zip" -OutFile "C:\temp\drivers\asus_bt.zip"
 Expand-Archive -LiteralPath "C:\temp\drivers\realtek_audio.zip" -DestinationPath "C:\temp\drivers\asus_bt"
 Remove-Item -Path "C:\temp\drivers\asus_bt.zip"
+
+Write-Host "Starting stage 4 - Packages"
+Start-Sleep -s 3
+$script2 = $PSScriptRoot+"\4 - Packages.ps1"
+&$script2

@@ -27,5 +27,9 @@ choco install C:\x\packages.config -y
 #Downloading installers that can't autoinstall to temp directory
 Invoke-WebRequest -Uri "https://www.oculus.com/download_app/?id=1582076955407037" -OutFile "C:\temp\oculus.exe"
 
+Install-WindowsUpdate -NotCategory "Drivers" -AcceptAll -IgnoreReboot
 
 Invoke-Item "C:\temp"
+
+[void](Read-Host 'Press Enter to reboot…')
+Restart-Computer
