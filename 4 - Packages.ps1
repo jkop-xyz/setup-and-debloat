@@ -24,6 +24,12 @@ Function WaitForKey {
 choco feature enable -n=useRememberedArgumentsForUpgrades
 choco install C:\x\packages.config -y
 
+#Installing Windows Features
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient -All
+Enable-WindowsOptionalFeature -Online -FeatureName MicorosftWindowsPowershellV2 -All
+Enable-WindowsOptionalFeature -Online -FeatureName MicorosftWindowsPowershellV2Root -All
+
 #Downloading installers that can't autoinstall to temp directory
 Invoke-WebRequest -Uri "https://www.oculus.com/download_app/?id=1582076955407037" -OutFile "C:\temp\oculus.exe"
 
