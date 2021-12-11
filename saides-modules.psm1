@@ -39,7 +39,6 @@ REG DELETE HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband /F
 # Remove Microsoft Chat Button From Taskbar
 Function MicrosoftChatButtonFromTaskbar {
 Write-Host "Removing Microsoft Chat from Taskbar"
-$appname = "Microsoft Edge"
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 0
 }
 
