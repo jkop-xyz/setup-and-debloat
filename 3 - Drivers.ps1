@@ -33,5 +33,4 @@ Remove-Item -Path "C:\temp\drivers\asus_bt.zip"
 
 Write-Host "Starting stage 4 - Packages"
 Start-Sleep -s 3
-$script2 = $PSScriptRoot+"\4 - Packages.ps1"
-&$script2
+."\4 - Packages.ps1"

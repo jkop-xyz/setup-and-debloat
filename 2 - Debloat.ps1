@@ -137,5 +137,4 @@ Set-Service WwanSvc -StartupType Disabled
 
 Write-Host "Starting stage 3 - Drivers"
 Start-Sleep -s 3
-$script2 = $PSScriptRoot+"\3 - Drivers.ps1"
-&$script2
+."\3 - Drivers.ps1"

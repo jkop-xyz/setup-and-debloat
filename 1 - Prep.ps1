@@ -12,7 +12,7 @@ Function WaitForKey {
 	[Console]::ReadKey($true) | Out-Null
 }
 WaitForKey
-
+Set-Executionpolicy unrestricted
 
 #Installing chocolatey
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
@@ -38,5 +38,4 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Type "DWord" -N
 
 Write-Host "Starting stage 2 - debloat"
 Start-Sleep -s 3
-$script2 = $PSScriptRoot+"\2 - Debloat.ps1"
-&$script2
+."\2 - Debloat.ps1"
