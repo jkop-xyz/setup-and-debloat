@@ -1,10 +1,4 @@
 # Relaunch the script with administrator privileges
-Function RequireAdmin {
-	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -WorkingDirectory $pwd -Verb RunAs
-		Exit
-	}
-}
 RequireAdmin
 
 
@@ -18,7 +12,7 @@ Function WaitForKey {
 	Write-Host "Stage 4 - packages - press any key to continue" -ForegroundColor Black -BackgroundColor White
 	[Console]::ReadKey($true) | Out-Null
 }
-
+WaitForKey
 
 #Installing choco packages from file
 choco feature enable -n=useRememberedArgumentsForUpgrades

@@ -423,3 +423,11 @@ Function RemoveMicrosoftApps {
     Get-AppxPackage | where-object {$_.name –like “*Bing*”} | where-object {$_.name –like “*Solitaire*”} | where-object {$_.name –like “*Bio*”} | where-object {$_.name –like “*Phone*”} | where-object {$_.name –like “*twitter*”} | where-object {$_.name –like “*candy*”} | Remove-AppxPackage
     Write-Host "Removing Microsoft Apps"
 }
+
+# Require Admin
+Function RequireAdmin {
+	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
+		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -WorkingDirectory $pwd -Verb RunAs
+		Exit
+	}
+}

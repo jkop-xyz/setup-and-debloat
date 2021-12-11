@@ -1,10 +1,4 @@
 # Relaunch the script with administrator privileges
-Function RequireAdmin {
-	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -WorkingDirectory $pwd -Verb RunAs
-		Exit
-	}
-}
 RequireAdmin
 
 
@@ -14,9 +8,10 @@ RequireAdmin
 # Stage 3 - drivers - press any key to continue
 Function WaitForKey {
         Write-Host
-	Write-Host "drivers - press any key to continue" -ForegroundColor Black -BackgroundColor White
+	Write-Host "Stage 3 - drivers - press any key to continue" -ForegroundColor Black -BackgroundColor White
 	[Console]::ReadKey($true) | Out-Null
 }
+WaitForKey
 
 Install-Module PSWindowsUpdate
 Get-WindowsUpdate | Out-Null
